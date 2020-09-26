@@ -2,8 +2,8 @@ import React from 'react';
 import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import Welcome from '../components/Welcome';
 import appStore from '../reducers';
+import Notes from './Notes';
 
 const middleWare = applyMiddleware(thunkMiddleware)
 
@@ -15,7 +15,7 @@ let store = createStore(
 
 const App = () => (
   <Provider store={store}>
-    <Welcome />
+    <Notes />
   </Provider>
 )
 
