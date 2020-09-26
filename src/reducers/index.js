@@ -2,9 +2,9 @@ import { combineReducers } from 'redux'
 import { controller } from './controller'
 import { ux } from './ux'
 
-const saspsp = combineReducers({
+const appStore = combineReducers({
   controller,
   ux
 })
 
-export default saspsp
+export default appStore

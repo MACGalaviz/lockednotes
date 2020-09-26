@@ -2,13 +2,13 @@ import React from 'react';
 import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import saspsp from '../reducers';
 import Welcome from '../components/Welcome';
+import appStore from '../reducers';
 
 const middleWare = applyMiddleware(thunkMiddleware)
 
 let store = createStore(
-  saspsp,
+  appStore,
   middleWare,
 )
 
