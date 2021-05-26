@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { Card, Button } from 'react-native-elements'
 
 import { showModal } from '../../actions/ux';
+import { editNewNote } from '../../actions/notes';
+
+import Input from '../../components/simple/Input';
 
 class New extends Component {
   constructor(props){
@@ -17,13 +20,25 @@ class New extends Component {
     dispatch(showModal({newNote: false}))
   }
 
+  handleEditNewNote = (editedNote) => {
+    const { dispatch } = this.props
+    dispatch(editNewNote(editedNote))
+  }
+
   render() {
+    const { newNote } = this.props
+    const { content } = newNote
+
     return (
       <Card>
         <Card.Title>Title</Card.Title>
         <Card.Divider/>
           <View>
-            <Text>Content...</Text>
+            <Input
+              placeHolder={'Write Something...'}
+              onChange={(value) => {this.handleEditNewNote({ content: value })}}
+              value={content}
+            />
           </View>
         <Card.Divider/>
         <Button title="Close" onPress={this.handleShowNewNote} />
@@ -33,8 +48,9 @@ class New extends Component {
 }
 
 function mapStateToProps(state){
-  const { ux } = state
+  const { ux, notes } = state
   return {
+    newNote: notes.newNote,
     ux
   }
 }
