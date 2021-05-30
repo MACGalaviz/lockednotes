@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {View, Text} from 'react-native';
+import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import New from './New'
 import ModalNewNote from '../../components/simple/Modal'
+import Card from '../../components/simple/Card';
 
 import { showModal } from '../../actions/ux';
 
@@ -23,6 +24,7 @@ class Notes extends Component {
 
   render() {
     const { modalNewNote, notes } = this.props;
+
     return (
       <View>
         <ModalNewNote visible={modalNewNote} Content={New} onClose={()=>{Alert.alert("Modal has been closed.");}}/>
@@ -31,6 +33,11 @@ class Notes extends Component {
           title=" New Note"
           onPress={this.handleShowNewNote}
         />
+        {
+          notes.map((note, id) => (
+            <Card key={id} content={note.content} onClick={() => { console.log({ id, note }) }} />
+          ))
+        }
       </View>
     )
   }
@@ -38,9 +45,10 @@ class Notes extends Component {
 
 function mapStateToProps(state){
   const { ux, notes } = state
+
   return {
     modalNewNote: ux.modal.newNote,
-    notes
+    notes: notes.notes,
   }
 }
 
