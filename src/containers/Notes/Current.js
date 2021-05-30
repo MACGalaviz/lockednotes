@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import { View } from 'react-native'
 import { Text, Card, Button } from 'react-native-elements'
@@ -16,6 +17,11 @@ class Current extends Component {
     dispatch(showModal({ open: false, type: 'current' }))
   }
 
+ handleCopyToClipboard = () => {
+    const { note } = this.props
+    Clipboard.setString(note.content);
+  };
+
   render() {
     const { note } = this.props
     const { content, checked } = note
@@ -28,6 +34,7 @@ class Current extends Component {
             <Text >{content}</Text>
           </View>
         <Card.Divider/>
+        { checked && <Button title="Copy" onPress={this.handleCopyToClipboard} /> }
         <Button title="Close" onPress={this.handleCloseModal} />
       </Card>
     )
