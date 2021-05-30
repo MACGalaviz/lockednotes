@@ -4,7 +4,8 @@ import {
 
 export function notes(state={
   newNote: {
-    content: ""
+    content: "",
+    checked: false
   }
 }, action) {
   switch(action.type){

@@ -27,7 +27,7 @@ class New extends Component {
 
   render() {
     const { newNote } = this.props
-    const { content } = newNote
+    const { content, checked } = newNote
 
     return (
       <Card>
@@ -36,8 +36,11 @@ class New extends Component {
           <View>
             <Input
               placeHolder={'Write Something...'}
-              onChange={(value) => {this.handleEditNewNote({ content: value })}}
+              onChange={(value) => { this.handleEditNewNote({ content: value }) }}
               value={content}
+              checkBoxTitle={'Make It Copyable'}
+              onChecked={() => { this.handleEditNewNote({ checked:!checked }) }}
+              checked={checked}
             />
           </View>
         <Card.Divider/>
