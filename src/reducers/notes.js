@@ -1,6 +1,7 @@
 import {
-  EDIT_NEW_NOTE,
   SAVE_NEW_NOTE,
+  EDIT_NEW_NOTE,
+  CLEAR_NEW_NOTE,
 } from '../const/actionTypes';
 
 export function notes(state={
@@ -11,20 +12,22 @@ export function notes(state={
   },
 }, action) {
   switch(action.type){
-    // TODO, Add clear newNote action.
     case SAVE_NEW_NOTE:
       return Object.assign({}, state, {
-        notes: [...state.notes, state.newNote],
-        newNote: {
-          content:"",
-          checked: false
-        }
+        notes: [...state.notes, state.newNote]
       })
     case EDIT_NEW_NOTE:
       return Object.assign({}, state, {
         newNote: {
           ...state.newNote,
           ... action.note
+        }
+      })
+    case CLEAR_NEW_NOTE:
+      return Object.assign({}, state, {
+        newNote: {
+          content:"",
+          checked: false
         }
       })
     default:

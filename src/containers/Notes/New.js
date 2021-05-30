@@ -5,20 +5,18 @@ import { View } from 'react-native'
 import { Card, Button } from 'react-native-elements'
 
 import { showModal } from '../../actions/ux';
-import { saveNewNote, editNewNote } from '../../actions/notes';
+import { saveNewNote, editNewNote, clearNewNote } from '../../actions/notes';
 
 import Input from '../../components/simple/Input';
 
 class New extends Component {
   constructor(props){
     super(props)
-    this.handleShowModal = this.handleShowNewNote.bind(this)
-    this.handleSaveNewNote = this.handleSaveNewNote.bind(this)
   }
 
   handleShowNewNote = () => {
     const { dispatch } = this.props
-    dispatch(showModal({newNote: false}))
+    dispatch(showModal({ newNote: false }))
   }
 
   handleEditNewNote = (editedNote) => {
@@ -29,6 +27,13 @@ class New extends Component {
   handleSaveNewNote = () => {
     const { dispatch } = this.props
     dispatch(saveNewNote())
+    dispatch(clearNewNote())
+    dispatch(showModal({ newNote: false }))
+  }
+
+  handleClearNewNote = () => {
+    const { dispatch } = this.props
+    dispatch(clearNewNote())
   }
 
   render() {
@@ -50,8 +55,9 @@ class New extends Component {
             />
           </View>
         <Card.Divider/>
-        <Button title="Close" onPress={this.handleShowNewNote} />
         <Button title="Save" onPress={this.handleSaveNewNote} />
+        <Button title="Clear" onPress={this.handleClearNewNote} />
+        <Button title="Close" onPress={this.handleShowNewNote} />
       </Card>
     )
   }
