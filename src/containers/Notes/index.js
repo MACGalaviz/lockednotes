@@ -6,6 +6,7 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import New from './New'
+import Current from './Current'
 import ModalNote from '../../components/simple/Modal'
 import Card from '../../components/simple/Card';
 
@@ -13,7 +14,8 @@ import { showModal } from '../../actions/ux';
 import { setCurrentNote } from '../../actions/notes';
 
 const NoteContent = {
-  new: New
+  new: New,
+  current: Current
 };
 
 class Notes extends Component {
@@ -30,6 +32,7 @@ class Notes extends Component {
   handleSelectNote = (note) => {
     const { dispatch } = this.props
     dispatch(setCurrentNote(note))
+    dispatch(showModal({ open: true, type: 'current' }))
   }
 
   render() {
@@ -59,6 +62,7 @@ function mapStateToProps(state){
   return {
     modal: ux.modal,
     notes: notes.notes,
+    currentNote: notes.currentNote,
   }
 }
 
