@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import { Card, Button } from 'react-native-elements'
 
 import { showModal } from '../../actions/ux';
-import { editNewNote } from '../../actions/notes';
+import { saveNewNote, editNewNote } from '../../actions/notes';
 
 import Input from '../../components/simple/Input';
 
@@ -13,6 +13,7 @@ class New extends Component {
   constructor(props){
     super(props)
     this.handleShowModal = this.handleShowNewNote.bind(this)
+    this.handleSaveNewNote = this.handleSaveNewNote.bind(this)
   }
 
   handleShowNewNote = () => {
@@ -23,6 +24,11 @@ class New extends Component {
   handleEditNewNote = (editedNote) => {
     const { dispatch } = this.props
     dispatch(editNewNote(editedNote))
+  }
+  
+  handleSaveNewNote = () => {
+    const { dispatch } = this.props
+    dispatch(saveNewNote())
   }
 
   render() {
@@ -45,6 +51,7 @@ class New extends Component {
           </View>
         <Card.Divider/>
         <Button title="Close" onPress={this.handleShowNewNote} />
+        <Button title="Save" onPress={this.handleSaveNewNote} />
       </Card>
     )
   }

@@ -22,7 +22,7 @@ class Notes extends Component {
   }
 
   render() {
-    const { modalNewNote } = this.props;
+    const { modalNewNote, notes } = this.props;
     return (
       <View>
         <ModalNewNote visible={modalNewNote} Content={New} onClose={()=>{Alert.alert("Modal has been closed.");}}/>
@@ -37,9 +37,10 @@ class Notes extends Component {
 }
 
 function mapStateToProps(state){
-  const { ux } = state
+  const { ux, notes } = state
   return {
     modalNewNote: ux.modal.newNote,
+    notes
   }
 }
 
