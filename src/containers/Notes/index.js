@@ -6,11 +6,15 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import New from './New'
-import ModalNewNote from '../../components/simple/Modal'
+import ModalNote from '../../components/simple/Modal'
 import Card from '../../components/simple/Card';
 
 import { showModal } from '../../actions/ux';
 import { setCurrentNote } from '../../actions/notes';
+
+const NoteContent = {
+  new: New
+};
 
 class Notes extends Component {
   constructor(props){
@@ -20,7 +24,7 @@ class Notes extends Component {
 
   handleShowNewNote = () => {
     const { dispatch } = this.props
-    dispatch(showModal({newNote: true}))
+    dispatch(showModal({ open: true, type: 'new' }))
   }
 
   handleSelectNote = (note) => {
@@ -29,11 +33,11 @@ class Notes extends Component {
   }
 
   render() {
-    const { modalNewNote, notes } = this.props;
+    const { modal, notes, currentNote } = this.props;
 
     return (
       <View>
-        <ModalNewNote visible={modalNewNote} Content={New} onClose={()=>{Alert.alert("Modal has been closed.");}}/>
+        <ModalNote visible={modal.open} Content={NoteContent[modal.type]} onClose={()=>{Alert.alert("Modal has been closed.");}}/>
         <Button
           icon={<Icon name="plus" color="white" />}
           title=" New Note"
@@ -53,7 +57,7 @@ function mapStateToProps(state){
   const { ux, notes } = state
 
   return {
-    modalNewNote: ux.modal.newNote,
+    modal: ux.modal,
     notes: notes.notes,
   }
 }

@@ -16,7 +16,7 @@ class New extends Component {
 
   handleShowNewNote = () => {
     const { dispatch } = this.props
-    dispatch(showModal({ newNote: false }))
+    dispatch(showModal({ open: false, type: 'new' }))
   }
 
   handleEditNewNote = (editedNote) => {
@@ -28,7 +28,7 @@ class New extends Component {
     const { dispatch } = this.props
     dispatch(saveNewNote())
     dispatch(clearNewNote())
-    dispatch(showModal({ newNote: false }))
+    this.handleShowNewNote()
   }
 
   handleClearNewNote = () => {
