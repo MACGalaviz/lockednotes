@@ -10,6 +10,7 @@ import ModalNewNote from '../../components/simple/Modal'
 import Card from '../../components/simple/Card';
 
 import { showModal } from '../../actions/ux';
+import { setCurrentNote } from '../../actions/notes';
 
 class Notes extends Component {
   constructor(props){
@@ -20,6 +21,11 @@ class Notes extends Component {
   handleShowNewNote = () => {
     const { dispatch } = this.props
     dispatch(showModal({newNote: true}))
+  }
+
+  handleSelectNote = (note) => {
+    const { dispatch } = this.props
+    dispatch(setCurrentNote(note))
   }
 
   render() {
@@ -35,7 +41,7 @@ class Notes extends Component {
         />
         {
           notes.map((note, id) => (
-            <Card key={id} content={note.content} onClick={() => { console.log({ id, note }) }} />
+            <Card key={id} content={note.content} onClick={() => { this.handleSelectNote(note) }} />
           ))
         }
       </View>

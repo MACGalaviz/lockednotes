@@ -2,6 +2,7 @@ import {
   SAVE_NEW_NOTE,
   EDIT_NEW_NOTE,
   CLEAR_NEW_NOTE,
+  SET_CURRENT_NOTE,
 } from '../const/actionTypes';
 
 export function notes(state={
@@ -10,6 +11,7 @@ export function notes(state={
     content: "",
     checked: false
   },
+  currentNote: null
 }, action) {
   switch(action.type){
     case SAVE_NEW_NOTE:
@@ -29,6 +31,10 @@ export function notes(state={
           content:"",
           checked: false
         }
+      })
+    case SET_CURRENT_NOTE:
+      return Object.assign({}, state, {
+        currentNote: action.note
       })
     default:
       return state;
