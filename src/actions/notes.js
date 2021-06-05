@@ -1,9 +1,17 @@
 import {
+  LOAD_STORAGE,
   SAVE_NEW_NOTE,
   EDIT_NEW_NOTE,
   CLEAR_NEW_NOTE,
   SET_CURRENT_NOTE,
 } from '../const/actionTypes';
+
+export function loadStorage(notes) {
+  return {
+    type: LOAD_STORAGE,
+    notes
+  } 
+};
 
 export function saveNewNote() {
   return {
@@ -29,4 +37,4 @@ export function setCurrentNote(note) {
     type: SET_CURRENT_NOTE,
     note
   }
-}
+};
