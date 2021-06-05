@@ -1,4 +1,5 @@
 import {
+  LOAD_STORAGE,
   SAVE_NEW_NOTE,
   EDIT_NEW_NOTE,
   CLEAR_NEW_NOTE,
@@ -6,7 +7,7 @@ import {
 } from '../const/actionTypes';
 
 export function notes(state={
-  notes:[],
+  notes: [],
   newNote: {
     content: "",
     checked: false
@@ -14,6 +15,10 @@ export function notes(state={
   currentNote: null
 }, action) {
   switch(action.type){
+    case LOAD_STORAGE:
+      return Object.assign({}, state, {
+        notes: action.notes
+      })
     case SAVE_NEW_NOTE:
       return Object.assign({}, state, {
         notes: [...state.notes, state.newNote]

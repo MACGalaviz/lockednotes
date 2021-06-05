@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import MMKVStorage from "react-native-mmkv-storage";
 
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -11,7 +12,7 @@ import ModalNote from '../../components/simple/Modal'
 import Card from '../../components/simple/Card';
 
 import { showModal } from '../../actions/ux';
-import { setCurrentNote } from '../../actions/notes';
+import { setCurrentNote, loadStorage } from '../../actions/notes';
 
 const NoteContent = {
   new: New,
@@ -22,6 +23,16 @@ class Notes extends Component {
   constructor(props){
     super(props)
     this.handleShowModal = this.handleShowNewNote.bind(this)
+  }
+
+  componentDidMount(){
+    const { dispatch } = this.props
+
+    const storage = new MMKVStorage.Loader().initialize();
+    let notes = await storage.getArrayAsync("lockednotes");
+    console.log(notes)
+
+    dispatch(loadStorage(notes))
   }
 
   handleShowNewNote = () => {
@@ -36,14 +47,14 @@ class Notes extends Component {
   }
 
   render() {
-    const { modal, notes, currentNote } = this.props;
+    const { modal, notes } = this.props;
 
     return (
       <View>
         <ModalNote visible={modal.open} Content={NoteContent[modal.type]} onClose={()=>{Alert.alert("Modal has been closed.");}}/>
         <Button
           icon={<Icon name="plus" color="white" />}
-          title=" New Note"
+          title="New Note"
           onPress={this.handleShowNewNote}
         />
         {
@@ -62,7 +73,6 @@ function mapStateToProps(state){
   return {
     modal: ux.modal,
     notes: notes.notes,
-    currentNote: notes.currentNote,
   }
 }
 
