@@ -25,14 +25,11 @@ class Notes extends Component {
     this.handleShowModal = this.handleShowNewNote.bind(this)
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     const { dispatch } = this.props
-
-    const storage = new MMKVStorage.Loader().initialize();
-    let notes = await storage.getArrayAsync("lockednotes");
-    console.log(notes)
-
-    dispatch(loadStorage(notes))
+    const storage = new MMKVStorage.Loader().withInstanceID("lockednotes").initialize();
+    const notes = await storage.getArrayAsync("notes") || []
+    dispatch(loadStorage(storage, notes))
   }
 
   handleShowNewNote = () => {

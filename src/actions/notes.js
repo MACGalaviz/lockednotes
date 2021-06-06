@@ -6,16 +6,18 @@ import {
   SET_CURRENT_NOTE,
 } from '../const/actionTypes';
 
-export function loadStorage(notes) {
+export function loadStorage(storage, notes) {
   return {
     type: LOAD_STORAGE,
+    storage,
     notes
-  } 
+  }
 };
 
-export function saveNewNote() {
+export function saveNewNote(storage) {
   return {
-    type: SAVE_NEW_NOTE
+    type: SAVE_NEW_NOTE,
+    storage
   }
 };
 

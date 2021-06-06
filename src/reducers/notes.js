@@ -12,14 +12,17 @@ export function notes(state={
     content: "",
     checked: false
   },
-  currentNote: null
+  currentNote: null,
+  storage: null
 }, action) {
   switch(action.type){
     case LOAD_STORAGE:
       return Object.assign({}, state, {
-        notes: action.notes
+        notes: action.notes,
+        storage: action.storage
       })
     case SAVE_NEW_NOTE:
+      action.storage.setArray('notes', [...state.notes, state.newNote]);
       return Object.assign({}, state, {
         notes: [...state.notes, state.newNote]
       })

@@ -25,8 +25,8 @@ class New extends Component {
   }
   
   handleSaveNewNote = () => {
-    const { dispatch } = this.props
-    dispatch(saveNewNote())
+    const { dispatch, storage } = this.props
+    dispatch(saveNewNote(storage))
     dispatch(clearNewNote())
     this.handleShowNewNote()
   }
@@ -66,6 +66,7 @@ class New extends Component {
 function mapStateToProps(state){
   const { ux, notes } = state
   return {
+    storage: notes.storage,
     newNote: notes.newNote,
     ux
   }
